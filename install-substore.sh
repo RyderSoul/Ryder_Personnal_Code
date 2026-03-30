@@ -29,7 +29,12 @@ command_exists() {
 }
 
 generate_api_path() {
-  tr -dc 'A-Za-z0-9' </dev/urandom | head -c 32
+  python3 - <<'PY'
+import secrets
+import string
+chars = string.ascii_letters + string.digits
+print(''.join(secrets.choice(chars) for _ in range(32)), end='')
+PY
 }
 
 validate_domain() {
